@@ -51,20 +51,21 @@ public class SecurityObjectService {
         var savedObject = securityObjectRepository.save(object);
         return mapper.toResponseDto(savedObject);
     }
-
+    @Transactional
     public SecurityObjectResponseDTO updateObject(Long id, SecurityObjectRequestDTO requestDTO){
         var customer = customerRepository.findById(requestDTO.customerId());
-
-        if(securityObjectRepository.findById(id).isEmpty() || customer.isEmpty()){
+        var object = securityObjectRepository.findById(id);
+        if(object.isEmpty() || customer.isEmpty()){
             throw new NoSuchElementException();
         }
         var objectToUpdate = mapper.toEntity(requestDTO);
         objectToUpdate.setId(id);
         objectToUpdate.setCustomer(customer.get());
+        objectToUpdate.setEquipmentList(object.get().getEquipmentList());
         var updatedObject = securityObjectRepository.save(objectToUpdate);
         return mapper.toResponseDto(updatedObject);
     }
-
+    @Transactional
     public void deleteObject(Long id){
         this.securityObjectRepository.deleteById(id);
     }

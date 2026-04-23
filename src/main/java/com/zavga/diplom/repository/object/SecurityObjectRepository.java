@@ -11,9 +11,9 @@ import java.util.Optional;
 
 @Repository
 public interface SecurityObjectRepository extends JpaRepository<SecurityObject,Long> {
-    @EntityGraph(attributePaths = {"customer"})
+    @EntityGraph(attributePaths = {"customer","equipmentList"})
     List<SecurityObject> findAll();
 
-    @EntityGraph(attributePaths = {"customer"})
+    @EntityGraph(attributePaths = {"customer","equipmentList"})
     Optional<SecurityObject> findById(Long id);
 }

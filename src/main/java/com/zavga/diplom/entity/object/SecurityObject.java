@@ -2,12 +2,15 @@ package com.zavga.diplom.entity.object;
 
 
 import com.zavga.diplom.entity.customer.Customer;
+import com.zavga.diplom.entity.equipment.Equipment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.repository.EntityGraph;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -42,5 +45,8 @@ public class SecurityObject {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    @OneToMany(mappedBy = "object")
+    private List<Equipment> equipmentList;
 
 }
