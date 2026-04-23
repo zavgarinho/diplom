@@ -22,6 +22,10 @@ public class CustomerController {
 
     @GetMapping
     public ResponseEntity<List<CustomerResponseDTO>> getAllCustomers(){
+        var customers = this.customerService.getAll();
+        for(var customer : customers){
+            System.out.println("Customer :" + customer.firstName() + " objects " + customer.objects());
+        }
         return new ResponseEntity<>(this.customerService.getAll(),HttpStatus.OK);
     }
 

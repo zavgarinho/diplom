@@ -35,7 +35,7 @@ public class Customer {
     @Column(name = "customer_type",nullable = false, length = 15)
     private CustomerType type;
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer")
     private List<SecurityObject> objects;
 
 }
