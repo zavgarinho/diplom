@@ -3,6 +3,7 @@ package com.zavga.diplom.entity.object;
 
 import com.zavga.diplom.entity.customer.Customer;
 import com.zavga.diplom.entity.equipment.Equipment;
+import com.zavga.diplom.entity.work.InstallationWork;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -47,6 +48,9 @@ public class SecurityObject {
     private Customer customer;
 
     @OneToMany(mappedBy = "object")
-    private List<Equipment> equipmentList;
+    private List<Equipment> equipment;
+
+    @OneToMany(mappedBy = "object")
+    private List<InstallationWork> works;
 
 }

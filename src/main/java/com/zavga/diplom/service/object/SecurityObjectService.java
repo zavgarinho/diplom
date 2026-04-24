@@ -61,7 +61,7 @@ public class SecurityObjectService {
         var objectToUpdate = mapper.toEntity(requestDTO);
         objectToUpdate.setId(id);
         objectToUpdate.setCustomer(customer.get());
-        objectToUpdate.setEquipmentList(object.get().getEquipmentList());
+        objectToUpdate.setEquipment(object.get().getEquipment());
         var updatedObject = securityObjectRepository.save(objectToUpdate);
         return mapper.toResponseDto(updatedObject);
     }

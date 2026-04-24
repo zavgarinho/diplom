@@ -1,7 +1,10 @@
 package com.zavga.diplom.dto.object;
 
 import com.zavga.diplom.dto.customer.CustomerShortDTO;
+import com.zavga.diplom.dto.work.InstallationWorkShortDTO;
 import com.zavga.diplom.entity.object.ObjectType;
+
+import java.util.List;
 
 public record SecurityObjectResponseDTO(
         Long id,
@@ -9,6 +12,7 @@ public record SecurityObjectResponseDTO(
         Double area,
         Integer floor,
         ObjectType type,
-        CustomerShortDTO customer
+        CustomerShortDTO customer,
+        List<InstallationWorkShortDTO> works
 ) {
 }

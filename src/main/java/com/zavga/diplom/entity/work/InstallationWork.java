@@ -1,0 +1,49 @@
+package com.zavga.diplom.entity.work;
+
+
+import com.zavga.diplom.entity.object.SecurityObject;
+import com.zavga.diplom.entity.worker.Worker;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "installation_works")
+public class InstallationWork {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "work_seq")
+    @SequenceGenerator(
+            name = "work_seq",
+            sequenceName = "work_id_seq",
+            allocationSize = 1
+    )
+    private Long id;
+
+    @Column(name = "name",nullable = false)
+    private String name;
+    @Column(name = "description")
+    private String description;
+
+    @ManyToMany
+    @JoinTable(
+          name = "work_worker",
+          joinColumns = {@JoinColumn(name = "work_id")},
+          inverseJoinColumns = {@JoinColumn(name = "worker_id")}
+    )
+    private List<Worker> workers;
+
+    @ManyToOne
+    @JoinColumn(name = "object_id")
+    private SecurityObject object;
+
+
+}
