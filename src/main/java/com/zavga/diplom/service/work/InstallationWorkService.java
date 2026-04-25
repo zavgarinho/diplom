@@ -10,6 +10,7 @@ import com.zavga.diplom.repository.worker.WorkerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -42,10 +43,14 @@ public class InstallationWorkService {
     @Transactional
     public InstallationWorkResponseDTO create(InstallationWorkRequestDTO requestDTO){
         var workToSave = mapper.toEntity(requestDTO);
-        var object = objectRepository.findById(requestDTO.objectId()).orElseThrow();
-        var workers = workerRepository.findAllById(requestDTO.workersId());
-        workToSave.setObject(object);
-        workToSave.setWorkers(workers);
+        if (requestDTO.objectId() != null) {
+            var object = objectRepository.findById(requestDTO.objectId()).orElseThrow();
+            workToSave.setObject(object);
+        }
+        if (requestDTO.workersId() != null && !requestDTO.workersId().isEmpty()) {
+            var workers = new HashSet<>(workerRepository.findAllById(requestDTO.workersId()));
+            workToSave.setWorkers(workers);
+        }
         var savedWork = workRepository.save(workToSave);
         return mapper.toResponseDTO(savedWork);
     }
@@ -55,11 +60,15 @@ public class InstallationWorkService {
             throw new NoSuchElementException();
         }
         var workToUpdate = mapper.toEntity(requestDTO);
-        var object = objectRepository.findById(requestDTO.objectId()).orElseThrow();
-        var workers = workerRepository.findAllById(requestDTO.workersId());
         workToUpdate.setId(id);
-        workToUpdate.setObject(object);
-        workToUpdate.setWorkers(workers);
+        if (requestDTO.objectId() != null) {
+            var object = objectRepository.findById(requestDTO.objectId()).orElseThrow();
+            workToUpdate.setObject(object);
+        }
+        if (requestDTO.workersId() != null && !requestDTO.workersId().isEmpty()) {
+            var workers = new HashSet<>(workerRepository.findAllById(requestDTO.workersId()));
+            workToUpdate.setWorkers(workers);
+        }
         var updatedWork = workRepository.save(workToUpdate);
         return mapper.toResponseDTO(updatedWork);
     }

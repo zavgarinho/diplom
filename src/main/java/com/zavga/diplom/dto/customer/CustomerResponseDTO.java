@@ -2,7 +2,6 @@ package com.zavga.diplom.dto.customer;
 
 import com.zavga.diplom.dto.object.SecurityObjectShortDTO;
 import com.zavga.diplom.entity.customer.CustomerType;
-import com.zavga.diplom.entity.object.SecurityObject;
 
 import java.util.List;
 

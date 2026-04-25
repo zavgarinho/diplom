@@ -3,13 +3,16 @@ package com.zavga.diplom.service.worker;
 import com.zavga.diplom.dto.worker.WorkerMapper;
 import com.zavga.diplom.dto.worker.WorkerRequestDTO;
 import com.zavga.diplom.dto.worker.WorkerResponseDTO;
+import com.zavga.diplom.entity.work.InstallationWork;
 import com.zavga.diplom.repository.work.InstallationWorkRepository;
 import com.zavga.diplom.repository.worker.WorkerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class WorkerService {
@@ -40,7 +43,7 @@ public class WorkerService {
         var workerToSave = mapper.toEntity(requestDTO);
         var savedWorker = workerRepository.save(workerToSave);
         if (requestDTO.worksId() != null && !requestDTO.worksId().isEmpty()) {
-            var works = workRepository.findAllById(requestDTO.worksId());
+            var works = new HashSet<>(workRepository.findAllById(requestDTO.worksId()));
             for (var work : works) {
                 work.getWorkers().add(savedWorker);
             }
@@ -53,7 +56,6 @@ public class WorkerService {
     @Transactional
     public WorkerResponseDTO update(Long id, WorkerRequestDTO requestDTO){
         var existingWorker = workerRepository.findById(id).orElseThrow();
-        // Убираем работника из старых работ (owning side)
         for (var oldWork : existingWorker.getWorks()) {
             oldWork.getWorkers().remove(existingWorker);
         }
@@ -63,7 +65,7 @@ public class WorkerService {
         worker.setId(id);
         var savedWorker = workerRepository.save(worker);
         if (requestDTO.worksId() != null && !requestDTO.worksId().isEmpty()) {
-            var works = workRepository.findAllById(requestDTO.worksId());
+            var works = new HashSet<>(workRepository.findAllById(requestDTO.worksId()));
             for (var work : works) {
                 work.getWorkers().add(savedWorker);
             }

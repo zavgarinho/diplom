@@ -11,6 +11,7 @@ import lombok.Setter;
 import com.zavga.diplom.entity.object.SecurityObject;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -36,6 +37,6 @@ public class Customer {
     private CustomerType type;
 
     @OneToMany(mappedBy = "customer")
-    private List<SecurityObject> objects;
+    private Set<SecurityObject> objects;
 
 }

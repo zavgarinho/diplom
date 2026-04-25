@@ -13,6 +13,7 @@ public interface InstallationWorkMapper {
     @Mapping(target = "object",ignore = true)
     InstallationWork toEntity(InstallationWorkRequestDTO requestDTO);
 
+    @Mapping(source = "object.id", target = "objectId")
     InstallationWorkResponseDTO toResponseDTO(InstallationWork work);
     InstallationWorkShortDTO toShortDTO(InstallationWork work);
 }

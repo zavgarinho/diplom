@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -33,7 +34,7 @@ public class Worker {
     private WorkerSpecialization specialization;
 
     @ManyToMany(mappedBy = "workers")
-    private List<InstallationWork> works;
+    private Set<InstallationWork> works;
 
 
 }

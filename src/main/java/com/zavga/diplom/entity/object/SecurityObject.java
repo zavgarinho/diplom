@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.repository.EntityGraph;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -48,9 +49,9 @@ public class SecurityObject {
     private Customer customer;
 
     @OneToMany(mappedBy = "object")
-    private List<Equipment> equipment;
+    private Set<Equipment> equipment;
 
     @OneToMany(mappedBy = "object")
-    private List<InstallationWork> works;
+    private Set<InstallationWork> works;
 
 }

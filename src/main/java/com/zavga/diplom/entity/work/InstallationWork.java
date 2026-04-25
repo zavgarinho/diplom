@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -39,7 +40,7 @@ public class InstallationWork {
           joinColumns = {@JoinColumn(name = "work_id")},
           inverseJoinColumns = {@JoinColumn(name = "worker_id")}
     )
-    private List<Worker> workers;
+    private Set<Worker> workers;
 
     @ManyToOne
     @JoinColumn(name = "object_id")
