@@ -44,6 +44,10 @@ public class SecurityObject {
     @Enumerated(value = EnumType.STRING)
     private ObjectType type;
 
+    @Column(name = "object_status")
+    @Enumerated(value = EnumType.STRING)
+    private ObjectStatus status;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;

@@ -34,6 +34,10 @@ public class InstallationWork {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "status")
+    @Enumerated(value = EnumType.STRING)
+    private InstallationWorkStatus status;
+
     @ManyToMany
     @JoinTable(
           name = "work_worker",
