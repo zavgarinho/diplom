@@ -1,0 +1,322 @@
+databaseChangeLog:
+- changeSet:
+    id: 1777310024081-1
+    author: zavgar
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: customers_pkey
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: first_name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: last_name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: patronymic
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: customer_type
+            type: VARCHAR(15)
+        tableName: customers
+- changeSet:
+    id: 1777310024081-2
+    author: zavgar
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: equipment_pkey
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: manufacturer
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: equipment_type
+            type: VARCHAR(255)
+        - column:
+            name: object_id
+            type: BIGINT
+        tableName: equipment
+- changeSet:
+    id: 1777310024081-3
+    author: zavgar
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: installation_works_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: description
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: object_id
+            type: BIGINT
+        - column:
+            name: status
+            type: VARCHAR(255)
+        tableName: installation_works
+- changeSet:
+    id: 1777310024081-4
+    author: zavgar
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: objects_pkey
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: address
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: area
+            type: FLOAT8
+        - column:
+            constraints:
+              nullable: false
+            name: floor
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: object_type
+            type: VARCHAR(255)
+        - column:
+            name: customer_id
+            type: BIGINT
+        - column:
+            name: object_status
+            type: VARCHAR(255)
+        tableName: objects
+- changeSet:
+    id: 1777310024081-5
+    author: zavgar
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: workers_pkey
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: specialization
+            type: VARCHAR(255)
+        tableName: workers
+- changeSet:
+    id: 1777310024081-6
+    author: zavgar
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: work_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: worker_id
+            type: BIGINT
+        tableName: work_worker
+- changeSet:
+    id: 1777310024081-7
+    author: zavgar
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: customer_id_seq
+        startValue: 1
+- changeSet:
+    id: 1777310024081-9
+    author: zavgar
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: equipment_id_seq
+        startValue: 1
+- changeSet:
+    id: 1777310024081-10
+    author: zavgar
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: objects_id_seq
+        startValue: 1
+- changeSet:
+    id: 1777310024081-11
+    author: zavgar
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: work_id_seq
+        startValue: 1
+- changeSet:
+    id: 1777310024081-12
+    author: zavgar
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: workers_id_seq
+        startValue: 1
+- changeSet:
+    id: 1777310024081-13
+    author: zavgar
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: worker_id
+        baseTableName: work_worker
+        constraintName: fk447v56a7xkpyo2heykx7n1kvr
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: workers
+        validate: true
+- changeSet:
+    id: 1777310024081-14
+    author: zavgar
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: object_id
+        baseTableName: equipment
+        constraintName: fkbqs0cgfwujvdw0a802i5036g3
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: objects
+        validate: true
+- changeSet:
+    id: 1777310024081-15
+    author: zavgar
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: customer_id
+        baseTableName: objects
+        constraintName: fkenomdjnplntdhuxd4umlty7iw
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: customers
+        validate: true
+- changeSet:
+    id: 1777310024081-16
+    author: zavgar
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: object_id
+        baseTableName: installation_works
+        constraintName: fkh1ajl68fpq63gjuqw51cc95ub
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: objects
+        validate: true
+- changeSet:
+    id: 1777310024081-17
+    author: zavgar
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: work_id
+        baseTableName: work_worker
+        constraintName: fkqtlle6nv4pbr43gc9nmlg3r36
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: installation_works
+        validate: true
+
