@@ -3,10 +3,7 @@ package com.zavga.diplom.entity.customer;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import com.zavga.diplom.entity.object.SecurityObject;
 
@@ -14,8 +11,8 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "customers")
@@ -23,6 +20,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_seq")
     @SequenceGenerator(name="customer_seq",sequenceName = "customer_id_seq",allocationSize = 1)
+    @EqualsAndHashCode.Include
     private Long id;
     @Column(name = "first_name",nullable = false)
     private String firstName;

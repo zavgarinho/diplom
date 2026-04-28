@@ -5,17 +5,14 @@ import com.zavga.diplom.entity.customer.Customer;
 import com.zavga.diplom.entity.equipment.Equipment;
 import com.zavga.diplom.entity.work.InstallationWork;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.jpa.repository.EntityGraph;
 
 import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "objects")
 @NoArgsConstructor
@@ -29,6 +26,7 @@ public class SecurityObject {
            sequenceName = "objects_id_seq",
             allocationSize = 1
     )
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name = "address",nullable = false)

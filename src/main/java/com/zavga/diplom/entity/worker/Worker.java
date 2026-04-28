@@ -3,16 +3,13 @@ package com.zavga.diplom.entity.worker;
 
 import com.zavga.diplom.entity.work.InstallationWork;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -26,6 +23,7 @@ public class Worker {
             sequenceName = "workers_id_seq",
             allocationSize = 1
     )
+    @EqualsAndHashCode.Include
     private Long id;
     @Column(name = "name",nullable = false)
     private String name;
@@ -35,6 +33,5 @@ public class Worker {
 
     @ManyToMany(mappedBy = "workers")
     private Set<InstallationWork> works;
-
 
 }

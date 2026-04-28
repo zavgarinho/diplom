@@ -3,13 +3,10 @@ package com.zavga.diplom.entity.equipment;
 
 import com.zavga.diplom.entity.object.SecurityObject;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -23,6 +20,7 @@ public class Equipment {
             sequenceName = "equipment_id_seq",
             allocationSize = 1
     )
+    @EqualsAndHashCode.Include
     private Long id;
     @Column(name = "name",nullable = false)
     private String name;

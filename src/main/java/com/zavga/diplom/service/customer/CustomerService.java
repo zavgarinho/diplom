@@ -29,9 +29,7 @@ public class CustomerService {
     }
     public Optional<CustomerResponseDTO> getById(Long id){
         var customer = this.customerRepository.findById(id);
-        if(customer.isPresent())
-            return Optional.of(customerMapper.toResponseDto(customer.get()));
-        return Optional.empty();
+        return customer.map(customerMapper::toResponseDto);
 
     }
     @Transactional
