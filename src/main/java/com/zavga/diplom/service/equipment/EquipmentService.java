@@ -38,10 +38,7 @@ public class EquipmentService {
 
     public Optional<EquipmentResponseDTO> findById(Long id){
         var equipment = this.equipmentRepository.findById(id);
-        if(equipment.isEmpty()){
-            return Optional.empty();
-        }
-        return Optional.of(mapper.toResponseDTO(equipment.get()));
+        return equipment.map(mapper::toResponseDTO);
     }
 
     @Transactional
