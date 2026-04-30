@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@ToString(exclude = {"customer", "equipment", "works"})
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "objects")

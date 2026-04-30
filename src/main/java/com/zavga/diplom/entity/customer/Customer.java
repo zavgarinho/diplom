@@ -12,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@ToString(exclude = "objects")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor

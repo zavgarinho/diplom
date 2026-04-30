@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@ToString(exclude = {"workers", "object"})
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@ToString(exclude = "works")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor

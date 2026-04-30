@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Data
+@ToString(exclude = "object")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
