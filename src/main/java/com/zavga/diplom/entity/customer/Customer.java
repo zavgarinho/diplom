@@ -7,6 +7,7 @@ import lombok.*;
 
 import com.zavga.diplom.entity.object.SecurityObject;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -36,6 +37,6 @@ public class Customer {
     private CustomerType type;
 
     @OneToMany(mappedBy = "customer")
-    private Set<SecurityObject> objects;
+    private Set<SecurityObject> objects = new HashSet<>();
 
 }

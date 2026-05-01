@@ -6,6 +6,7 @@ import com.zavga.diplom.entity.worker.Worker;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -43,7 +44,7 @@ public class InstallationWork {
           joinColumns = {@JoinColumn(name = "work_id")},
           inverseJoinColumns = {@JoinColumn(name = "worker_id")}
     )
-    private Set<Worker> workers;
+    private Set<Worker> workers = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "object_id")

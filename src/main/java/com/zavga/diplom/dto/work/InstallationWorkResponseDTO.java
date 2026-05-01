@@ -1,5 +1,6 @@
 package com.zavga.diplom.dto.work;
 
+import com.zavga.diplom.dto.object.SecurityObjectShortDTO;
 import com.zavga.diplom.dto.worker.WorkerShortDTO;
 import com.zavga.diplom.entity.work.InstallationWorkStatus;
 
@@ -11,6 +12,6 @@ public record InstallationWorkResponseDTO(
         String description,
         InstallationWorkStatus status,
         List<WorkerShortDTO> workers,
-        Long objectId
+        SecurityObjectShortDTO object
 ) {
 }

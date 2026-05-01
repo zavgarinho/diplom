@@ -5,6 +5,7 @@ import com.zavga.diplom.entity.work.InstallationWork;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,6 +34,6 @@ public class Worker {
     private WorkerSpecialization specialization;
 
     @ManyToMany(mappedBy = "workers")
-    private Set<InstallationWork> works;
+    private Set<InstallationWork> works = new HashSet<>();
 
 }
