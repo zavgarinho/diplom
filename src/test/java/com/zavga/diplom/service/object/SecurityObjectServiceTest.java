@@ -91,7 +91,7 @@ class SecurityObjectServiceTest {
         Customer customer = new Customer();
         customer.setId(1L);
         SecurityObjectResponseDTO responseDTO = createResponseDTO(1L);
-        SecurityObjectRequestDTO requestDTO = createRequestDTO(1L,null);
+        SecurityObjectRequestDTO requestDTO = createRequestDTO(1L,null,null);
         when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
         when(objectMapper.toEntity(requestDTO)).thenReturn(object);
         when(objectRepository.save(object)).thenReturn(object);
@@ -105,7 +105,7 @@ class SecurityObjectServiceTest {
     @Test
     void testSaveObject_ThrowsWhenCustomerNotFound(){
         SecurityObject object = new SecurityObject();
-        SecurityObjectRequestDTO requestDTO = createRequestDTO(1L,null);
+        SecurityObjectRequestDTO requestDTO = createRequestDTO(1L,null,null);
         when(customerRepository.findById(1L)).thenReturn(Optional.empty());
         when(objectMapper.toEntity(requestDTO)).thenReturn(object);
 
@@ -123,7 +123,7 @@ class SecurityObjectServiceTest {
         work1.setId(1L);
         InstallationWork work2 = new InstallationWork();
         work2.setId(2L);
-        SecurityObjectRequestDTO requestDTO = createRequestDTO(1L,List.of(1L,2L));
+        SecurityObjectRequestDTO requestDTO = createRequestDTO(1L,null,List.of(1L,2L));
         SecurityObjectResponseDTO expected = createResponseDTO(1L);
 
         when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
@@ -139,10 +139,8 @@ class SecurityObjectServiceTest {
     }
     @Test
     void testUpdateObject_ThrowsWhenNotFound(){
-        SecurityObjectRequestDTO requestDTO = createRequestDTO(1L,List.of(1L,2L));
+        SecurityObjectRequestDTO requestDTO = createRequestDTO(1L,null,List.of(1L,2L));
 
-        when(customerRepository.findById(1L)).thenReturn(Optional.empty());
-        when(workRepository.findAllById(List.of(1L,2L))).thenReturn(List.of());
         when(objectRepository.findById(1L)).thenReturn(Optional.empty());
 
 
@@ -154,8 +152,8 @@ class SecurityObjectServiceTest {
     SecurityObjectResponseDTO createResponseDTO(Long id){
         return new SecurityObjectResponseDTO(id,"Address", 40.0,4, ObjectType.APARTMENT, ObjectStatus.NEW,null,null,null);
     }
-    SecurityObjectRequestDTO createRequestDTO(Long customerID, List<Long> worksId){
-        return new SecurityObjectRequestDTO("Address", 40.0,4, ObjectType.APARTMENT, ObjectStatus.NEW,customerID,worksId);
+    SecurityObjectRequestDTO createRequestDTO(Long customerID, List<Long> equipmentIds,  List<Long> worksIds){
+        return new SecurityObjectRequestDTO("Address", 40.0,4, ObjectType.APARTMENT, ObjectStatus.NEW,customerID,equipmentIds,worksIds);
     }
 
 

@@ -12,6 +12,7 @@ public record SecurityObjectRequestDTO (
     ObjectType type,
     ObjectStatus status,
     Long customerId,
-    List<Long> worksId
+    List<Long> equipmentIds,
+    List<Long> worksIds
 ) {
 }

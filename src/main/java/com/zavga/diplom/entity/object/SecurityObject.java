@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.repository.EntityGraph;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -52,9 +53,9 @@ public class SecurityObject {
     private Customer customer;
 
     @OneToMany(mappedBy = "object")
-    private Set<Equipment> equipment;
+    private Set<Equipment> equipment = new HashSet<>();
 
     @OneToMany(mappedBy = "object")
-    private Set<InstallationWork> works;
+    private Set<InstallationWork> works = new HashSet<>();
 
 }
