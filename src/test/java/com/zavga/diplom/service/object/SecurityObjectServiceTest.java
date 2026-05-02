@@ -119,6 +119,7 @@ class SecurityObjectServiceTest {
         SecurityObject object = new SecurityObject();
         Customer customer = new Customer();
         customer.setId(1L);
+
         InstallationWork work1 = new InstallationWork();
         work1.setId(1L);
         InstallationWork work2 = new InstallationWork();
