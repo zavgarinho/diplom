@@ -58,10 +58,11 @@ public class EquipmentService {
         var current = equipmentRepository.findById(id).orElseThrow();
         var equipmentToSave = mapper.toEntity(requestDTO);
         equipmentToSave.setId(id);
-        if (requestDTO.objectId() != null && !requestDTO.objectId().equals(current.getObject().getId())) {
+        var currentObjectId = current.getObject() != null ? current.getObject().getId() : null;
+        if (requestDTO.objectId() != null && !requestDTO.objectId().equals(currentObjectId)) {
             var object = objectRepository.findById(requestDTO.objectId()).orElseThrow();
             equipmentToSave.setObject(object);
-        }else{
+        } else {
             equipmentToSave.setObject(current.getObject());
         }
         var updatedEquipment = equipmentRepository.save(equipmentToSave);

@@ -59,15 +59,18 @@ public class InstallationWorkService {
         var current = workRepository.findById(id).orElseThrow();
         var workToUpdate = mapper.toEntity(requestDTO);
         workToUpdate.setId(id);
-        if (requestDTO.objectId() != null && !requestDTO.objectId().equals(current.getObject().getId())) {
+        var currentObjectId = current.getObject() != null ? current.getObject().getId() : null;
+        if (requestDTO.objectId() != null && !requestDTO.objectId().equals(currentObjectId)) {
             var object = objectRepository.findById(requestDTO.objectId()).orElseThrow();
             workToUpdate.setObject(object);
-        }else {
+        } else {
             workToUpdate.setObject(current.getObject());
         }
         if (requestDTO.workersId() != null && !requestDTO.workersId().isEmpty()) {
             var workers = new HashSet<>(workerRepository.findAllById(requestDTO.workersId()));
             workToUpdate.setWorkers(workers);
+        } else {
+            workToUpdate.setWorkers(current.getWorkers());
         }
         var updatedWork = workRepository.save(workToUpdate);
         return mapper.toResponseDTO(updatedWork);
