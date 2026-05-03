@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(mvnw.cmd compile *)"
+      "Bash(mvnw.cmd compile *)",
+      "Bash(xargs grep *)",
+      "Bash(cd /tmp)",
+      "Bash(find \"C:/Users/super/OneDrive/Рабочий стол/УНІВЕР/Диплом/project/diplom/src\" -type f -name \"*.java\" -path \"*/controller/*\")"
     ]
   }
 }

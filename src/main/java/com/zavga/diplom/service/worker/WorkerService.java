@@ -57,22 +57,24 @@ public class WorkerService {
     @Transactional
     public WorkerResponseDTO update(Long id, WorkerRequestDTO requestDTO){
         var existingWorker = workerRepository.findById(id).orElseThrow();
-        for (var oldWork : existingWorker.getWorks()) {
-            oldWork.getWorkers().remove(existingWorker);
-        }
-        workRepository.saveAll(existingWorker.getWorks());
+
 
         var worker = mapper.toEntity(requestDTO);
         worker.setId(id);
         var savedWorker = workerRepository.save(worker);
         if (requestDTO.worksId() != null && !requestDTO.worksId().isEmpty()) {
+            for (var oldWork : existingWorker.getWorks()) {
+                oldWork.getWorkers().remove(existingWorker);
+            }
+            workRepository.saveAll(existingWorker.getWorks());
             var works = new HashSet<>(workRepository.findAllById(requestDTO.worksId()));
             for (var work : works) {
                 work.getWorkers().add(savedWorker);
             }
             workRepository.saveAll(works);
             savedWorker.setWorks(works);
-        }
+        }else
+            savedWorker.setWorks(existingWorker.getWorks());
         return mapper.toResponseDTO(savedWorker);
     }
 
