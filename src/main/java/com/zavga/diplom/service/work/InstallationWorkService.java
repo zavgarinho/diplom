@@ -56,14 +56,14 @@ public class InstallationWorkService {
     }
     @Transactional
     public InstallationWorkResponseDTO update(Long id,InstallationWorkRequestDTO requestDTO){
-        if(!workRepository.existsById(id)){
-            throw new NoSuchElementException();
-        }
+        var current = workRepository.findById(id).orElseThrow();
         var workToUpdate = mapper.toEntity(requestDTO);
         workToUpdate.setId(id);
-        if (requestDTO.objectId() != null) {
+        if (requestDTO.objectId() != null && !requestDTO.objectId().equals(current.getObject().getId())) {
             var object = objectRepository.findById(requestDTO.objectId()).orElseThrow();
             workToUpdate.setObject(object);
+        }else {
+            workToUpdate.setObject(current.getObject());
         }
         if (requestDTO.workersId() != null && !requestDTO.workersId().isEmpty()) {
             var workers = new HashSet<>(workerRepository.findAllById(requestDTO.workersId()));

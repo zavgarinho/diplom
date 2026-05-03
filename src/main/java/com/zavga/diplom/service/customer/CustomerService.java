@@ -4,6 +4,7 @@ import com.zavga.diplom.dto.customer.CustomerMapper;
 import com.zavga.diplom.dto.customer.CustomerRequestDTO;
 import com.zavga.diplom.dto.customer.CustomerResponseDTO;
 import com.zavga.diplom.entity.customer.Customer;
+import com.zavga.diplom.exception.EntityHasDependentsException;
 import com.zavga.diplom.repository.customer.CustomerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -47,8 +48,13 @@ public class CustomerService {
     }
     @Transactional
     public boolean deleteCustomer(Long id){
-        if( !this.customerRepository.findById(id).isPresent()){
+        var customer = this.customerRepository.findById(id);
+        if(customer.isEmpty()){
             return false;
+        }
+        if(!customer.get().getObjects().isEmpty()){
+            throw new EntityHasDependentsException(
+                    "Неможливо видалити замовника, доки за ним закріплені об'єкти охорони");
         }
         this.customerRepository.deleteById(id);
         return true;

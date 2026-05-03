@@ -55,12 +55,14 @@ public class EquipmentService {
     }
     @Transactional
     public EquipmentResponseDTO update(Long id,EquipmentRequestDTO requestDTO){
-        equipmentRepository.findById(id).orElseThrow();
+        var current = equipmentRepository.findById(id).orElseThrow();
         var equipmentToSave = mapper.toEntity(requestDTO);
         equipmentToSave.setId(id);
-        if (requestDTO.objectId() != null) {
+        if (requestDTO.objectId() != null && !requestDTO.objectId().equals(current.getObject().getId())) {
             var object = objectRepository.findById(requestDTO.objectId()).orElseThrow();
             equipmentToSave.setObject(object);
+        }else{
+            equipmentToSave.setObject(current.getObject());
         }
         var updatedEquipment = equipmentRepository.save(equipmentToSave);
         return mapper.toResponseDTO(updatedEquipment);

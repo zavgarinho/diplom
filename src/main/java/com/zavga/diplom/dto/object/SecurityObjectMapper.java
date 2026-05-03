@@ -15,6 +15,7 @@ public interface SecurityObjectMapper {
 
     @Mapping(target = "customer",ignore = true)
     @Mapping(target = "equipment",ignore = true)
+    @Mapping(target = "works",ignore = true)
     SecurityObject toEntity(SecurityObjectRequestDTO securityObjectRequestDTO);
 
     SecurityObjectResponseDTO toResponseDto(SecurityObject securityObject);

@@ -4,6 +4,7 @@ package com.zavga.diplom.service.object;
 import com.zavga.diplom.dto.object.SecurityObjectMapper;
 import com.zavga.diplom.dto.object.SecurityObjectRequestDTO;
 import com.zavga.diplom.dto.object.SecurityObjectResponseDTO;
+import com.zavga.diplom.exception.EntityHasDependentsException;
 import com.zavga.diplom.repository.customer.CustomerRepository;
 import com.zavga.diplom.repository.equipment.EquipmentRepository;
 import com.zavga.diplom.repository.object.SecurityObjectRepository;
@@ -69,9 +70,11 @@ public class SecurityObjectService {
         var objectToUpdate = mapper.toEntity(requestDTO);
         objectToUpdate.setId(id);
 
-        if(requestDTO.customerId() != null){
+        if(requestDTO.customerId() != null && !requestDTO.customerId().equals(existingObject.getCustomer().getId())){
             var customer = customerRepository.findById(requestDTO.customerId()).orElseThrow();
             objectToUpdate.setCustomer(customer);
+        }else{
+            objectToUpdate.setCustomer(existingObject.getCustomer());
         }
 
         var updatedObject = securityObjectRepository.save(objectToUpdate);
@@ -100,6 +103,15 @@ public class SecurityObjectService {
     }
     @Transactional
     public void deleteObject(Long id){
+        var object = this.securityObjectRepository.findById(id).orElseThrow();
+        if(!object.getEquipment().isEmpty()){
+            throw new EntityHasDependentsException(
+                    "Неможливо видалити об'єкт, доки за ним закріплене обладнання");
+        }
+        if(!object.getWorks().isEmpty()){
+            throw new EntityHasDependentsException(
+                    "Неможливо видалити об'єкт, доки за ним закріплені роботи з монтажу");
+        }
         this.securityObjectRepository.deleteById(id);
     }
 }

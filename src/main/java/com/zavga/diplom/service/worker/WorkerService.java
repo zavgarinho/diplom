@@ -20,6 +20,7 @@ public class WorkerService {
     private final WorkerRepository workerRepository;
     private final WorkerMapper mapper;
     private final InstallationWorkRepository workRepository;
+
     public WorkerService(WorkerRepository workerRepository,
                          WorkerMapper mapper,
                          InstallationWorkRepository workRepository){
