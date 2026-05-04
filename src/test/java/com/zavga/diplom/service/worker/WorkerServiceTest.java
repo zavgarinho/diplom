@@ -71,7 +71,6 @@ class WorkerServiceTest {
         WorkerResponseDTO provided = workerService.findById(1L);
 
         assertEquals(expected,provided);
-
     }
 
     @Test
@@ -83,7 +82,6 @@ class WorkerServiceTest {
         WorkerResponseDTO provided = workerService.findById(1L);
 
         assertEquals(expected,provided);
-
     }
 
     @Test
@@ -96,7 +94,6 @@ class WorkerServiceTest {
         worker.setSpecialization(requestDTO.specialization());
         InstallationWorkShortDTO workShortDTO = createWorkShortDTO(1L);
         WorkerResponseDTO expected = createResponseDTO(1L,List.of(workShortDTO));
-
 
         when(workerMapper.toEntity(requestDTO)).thenReturn(worker);
         when(workerRepository.save(worker)).thenReturn(worker);
@@ -121,6 +118,7 @@ class WorkerServiceTest {
         WorkerResponseDTO expected = createResponseDTO(existingWorker.getId(), List.of(workShortDTO));
         mappedWorker.setName(requestDTO.name());
         mappedWorker.setSpecialization(requestDTO.specialization());
+
         when(workerRepository.findById(1L)).thenReturn(Optional.of(existingWorker));
         when(workerMapper.toEntity(requestDTO)).thenReturn(mappedWorker);
         when(workerRepository.save(mappedWorker)).thenReturn(mappedWorker);
