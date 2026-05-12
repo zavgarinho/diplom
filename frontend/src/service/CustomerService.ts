@@ -7,3 +7,7 @@ export const getAllCustomers = () => {
     return axios.get(BASE_URL)
 
 }
+
+export const getCustomerTypes = () => {
+    return axios.get(BASE_URL + "/customer-types")
+}

@@ -2,14 +2,18 @@ package com.zavga.diplom.controller.customer;
 
 import com.zavga.diplom.dto.customer.CustomerRequestDTO;
 import com.zavga.diplom.dto.customer.CustomerResponseDTO;
+import com.zavga.diplom.entity.customer.CustomerType;
 import com.zavga.diplom.service.customer.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @CrossOrigin("*")
 @RestController
@@ -60,6 +64,15 @@ public class CustomerController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @GetMapping("/customer-types")
+    public ResponseEntity<Map<String,String>> getCustomerTypes(){
+        return ResponseEntity.ok(
+                Arrays.stream(CustomerType.values())
+                        .collect(Collectors.toMap(Enum::name, CustomerType::getLabel))
+        );
     }
 
 }

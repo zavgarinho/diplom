@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { Customer } from '../types/Customer';
+import type { Customer } from '../types/customer/Customer';
 import { getAllCustomers } from '../service/CustomerService';
 import { useNavigate } from 'react-router-dom';
 
