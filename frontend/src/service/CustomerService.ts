@@ -11,3 +11,7 @@ export const getAllCustomers = () => {
 export const getCustomerTypes = () => {
     return axios.get(BASE_URL + "/customer-types")
 }
+
+export const getCustomerById = (id:string) => {
+    return axios.get(BASE_URL + "/" + id)
+}

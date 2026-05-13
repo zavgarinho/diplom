@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { getCustomerTypes } from '../service/CustomerService'
+import type { CustomerTypes } from '../types/customer/CustomerTypes'
 
 const AddCustomer = () => {
-  const [customerTypes,setCustomerTypes] = useState<{name: string, translate: string}[]>([])
+  const [customerTypes,setCustomerTypes] = useState<CustomerTypes[]>([])
 
 
   useEffect(()=>{
     getCustomerTypes().then(response => {
       const data = response.data;
-      const types = Object.entries(data).map(([name, translate]) => ({ name, translate: translate as string }));
+      const types: CustomerTypes[] = Object.entries(data).map(([name, translate]) => ({ name, translate: translate as string }));
       setCustomerTypes(types)
-    })
+    }).catch((err) => console.error(err))
 
   },[])
 
@@ -41,6 +42,7 @@ const AddCustomer = () => {
               <option key={type.name} value={type.name}>{type.translate}</option>
             ))}
         </select>
+        <button className='btn btn-success'>Додати</button>
         </div>
 
 

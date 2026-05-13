@@ -1,0 +1,61 @@
+body {
+  background-color: #f5f7fa;
+  color: #333;
+}
+
+h2, h4 {
+  color: #3a6b8c;
+}
+
+.card {
+  border: 1px solid #d4dce4;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.card-header {
+  background-color: #e8f0f6;
+  color: #3a6b8c;
+  font-weight: 600;
+  border-bottom: 1px solid #d4dce4;
+}
+
+.table th {
+  background-color: #eef3f7;
+  color: #4a6a7d;
+  font-weight: 600;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f0f5f9;
+}
+
+.table-striped > tbody > tr:hover {
+  background-color: #e2ecf3;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #5a9abf;
+  border-color: #5a9abf;
+}
+
+.btn-primary:hover {
+  background-color: #4a869e;
+  border-color: #4a869e;
+}
+
+.btn-success {
+  background-color: #6aad8e;
+  border-color: #6aad8e;
+}
+
+.btn-success:hover {
+  background-color: #5a9a7e;
+  border-color: #5a9a7e;
+}
+
+.form-control:focus {
+  border-color: #5a9abf;
+  box-shadow: 0 0 0 0.2rem rgba(90, 154, 191, 0.25);
+}

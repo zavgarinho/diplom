@@ -1,20 +1,34 @@
 import { useEffect, useState } from 'react'
 import type { Customer } from '../types/customer/Customer';
-import { getAllCustomers } from '../service/CustomerService';
+import { getAllCustomers, getCustomerTypes } from '../service/CustomerService';
 import { useNavigate } from 'react-router-dom';
+import type { CustomerTypes } from '../types/customer/CustomerTypes';
 
 const CustomersList = () => {
   
   const [customers,setCustomers] = useState<Customer[]>([])
+  const [customerTypes,setCustomerTypes] = useState<CustomerTypes[]>([])
+  
+  
+    
   const navigator = useNavigate()
 
   useEffect(() => {
     getAllCustomers().then(response => {
       console.log(response.data)
-      setCustomers(response.data)
+      let customersData: Customer[] = response.data
+      customersData.sort((a,b) => a.id-b.id)
+      setCustomers(customersData)
     }).catch(error => console.error(error));
 
+    getCustomerTypes().then(response => {
+          const data = response.data;
+          const types: CustomerTypes[] = Object.entries(data).map(([name, translate]) => ({ name, translate: translate as string }));
+          setCustomerTypes(types)
+        }).catch((err) => console.error(err))
+
   },[])
+
 
   
 
@@ -42,13 +56,13 @@ const CustomersList = () => {
           </thead>
           <tbody>
             {customers.map((customer) => (
-              <tr key={customer.id}>
+              <tr key={customer.id} onClick={() => navigator(`/customers/${customer.id}`)} style={{cursor: 'pointer'}}>
                 <td>{customer.id}</td>
                 <td>{customer.firstName}</td>
                 <td>{customer.lastName}</td>
                 <td>{customer.patronymic}</td>
                 <td>{customer.email}</td>
-                <td>{customer.type}</td>
+                <td>{customerTypes.find(t => t.name === customer.type)?.translate}</td>
                 <td>{customer.objects?.length}</td>
               </tr>
             ))}
