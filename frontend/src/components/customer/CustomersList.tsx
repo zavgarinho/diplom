@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import type { Customer } from '../types/customer/Customer';
-import { getAllCustomers, getCustomerTypes } from '../service/CustomerService';
+import type { Customer } from '../../types/customer/Customer';
+import { getAllCustomers, getCustomerTypes } from '../../service/CustomerService';
 import { useNavigate } from 'react-router-dom';
-import type { CustomerTypes } from '../types/customer/CustomerTypes';
+import type { CustomerTypes } from '../../types/customer/CustomerTypes';
 
 const CustomersList = () => {
   

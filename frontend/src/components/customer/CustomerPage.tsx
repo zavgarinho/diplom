@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import type { Customer } from '../types/customer/Customer'
-import { getCustomerById } from '../service/CustomerService'
+import type { Customer } from '../../types/customer/Customer'
+import { getCustomerById } from '../../service/CustomerService'
 
 const CustomerPage = () => {
   const {id} = useParams()

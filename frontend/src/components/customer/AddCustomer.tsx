@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { getCustomerTypes } from '../service/CustomerService'
-import type { CustomerTypes } from '../types/customer/CustomerTypes'
+import { getCustomerTypes } from '../../service/CustomerService'
+import type { CustomerTypes } from '../../types/customer/CustomerTypes'
 
 const AddCustomer = () => {
   const [customerTypes,setCustomerTypes] = useState<CustomerTypes[]>([])

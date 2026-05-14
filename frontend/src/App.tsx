@@ -1,14 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-import CustomersList from './components/CustomersList.tsx'
+import CustomersList from './components/customer/CustomersList.tsx'
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
-import AddCustomer from './components/AddCustomer.tsx'
-import CustomerPage from './components/CustomerPage.tsx'
+import AddCustomer from './components/customer/AddCustomer.tsx'
+import CustomerPage from './components/customer/CustomerPage.tsx'
+import Header from './components/Header.tsx'
 
 function App() {
   return (
     <>
     <BrowserRouter>
+    <Header/>
       <Routes>
         <Route path='/' element = { <CustomersList/> }></Route>
         <Route path='/customers' element = { <CustomersList/> }></Route>
