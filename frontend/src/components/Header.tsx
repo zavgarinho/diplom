@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 
 const Header = () => {
   return (
-    <nav className='navbar navbar-expand-lg navbar-dark bg-dark bg-gradient shadow-sm'>
+    <nav className='navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top'>
       <div className='container'>
         <NavLink className='navbar-brand fw-bold' to='/'>Охоронна компанія</NavLink>
          

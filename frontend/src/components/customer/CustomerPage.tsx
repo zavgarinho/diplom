@@ -14,7 +14,7 @@ const CustomerPage = () => {
     getCustomerById(id).then(response =>{
       console.log(response.data)
       let responseData : Customer = response.data
-      responseData?.objects.sort((a,b) => a.id-b.id)
+      responseData?.objects!.sort((a,b) => a.id-b.id)
       setCustomer(responseData)
     })
   },[])
@@ -57,7 +57,7 @@ const CustomerPage = () => {
       </div>
 
       <h4 className='mb-3'>Об'єкти охорони</h4>
-      {customer?.objects.map(obj => (
+      {customer?.objects?.map(obj => (
         <div className='card mb-3' key={obj.id}>
           <div className='card-header'>
             Об'єкт #{obj.id}

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import type { Customer } from '../../types/customer/Customer';
-import { getAllCustomers, getCustomerTypes } from '../../service/CustomerService';
+import { deleteCustomer, getAllCustomers, getCustomerTypes } from '../../service/CustomerService';
 import { useNavigate } from 'react-router-dom';
 import type { CustomerTypes } from '../../types/customer/CustomerTypes';
 
@@ -17,7 +17,7 @@ const CustomersList = () => {
     getAllCustomers().then(response => {
       console.log(response.data)
       let customersData: Customer[] = response.data
-      customersData.sort((a,b) => a.id-b.id)
+      customersData.sort((a,b) => a.id!-b.id!)
       setCustomers(customersData)
     }).catch(error => console.error(error));
 
@@ -30,7 +30,12 @@ const CustomersList = () => {
   },[])
 
 
-  
+  const deleteCustomerFunc = (e:React.MouseEvent, id:number) =>{
+     e.stopPropagation();
+     deleteCustomer(`${id}`).then(() => {
+       setCustomers(customers.filter(c => c.id !== id))
+     }).catch(error => console.error(error))
+  }
 
   return (
     <>
@@ -42,7 +47,7 @@ const CustomersList = () => {
         }}>
           Додати клієнта
           </button>
-        <table className='table table-striped'>
+        <table className='table table-striped text-center align-middle'>
           <thead>
             <tr>
               <th>Id</th>
@@ -52,6 +57,7 @@ const CustomersList = () => {
               <th>Email</th>
               <th>Тип</th>
               <th>Кількість об'єктів</th>
+              <th>Дії</th>
             </tr>
           </thead>
           <tbody>
@@ -64,6 +70,10 @@ const CustomersList = () => {
                 <td>{customer.email}</td>
                 <td>{customerTypes.find(t => t.name === customer.type)?.translate}</td>
                 <td>{customer.objects?.length}</td>
+                <td>
+                  <button className='btn btn-secondary me-2' onClick={(e) => { e.stopPropagation(); navigator(`/edit-customer/${customer.id}`)}}> Редагувати</button>
+                  <button className='btn btn-danger' onClick={(e) => {deleteCustomerFunc(e, customer.id!)}}> Видалити </button>
+                </td>
               </tr>
             ))}
           </tbody>
