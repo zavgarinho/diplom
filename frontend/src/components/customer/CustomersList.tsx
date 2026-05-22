@@ -2,12 +2,12 @@
 import type { Customer } from '../../types/customer/Customer';
 import { deleteCustomer, getAllCustomers, getCustomerTypes } from '../../service/CustomerService';
 import { useNavigate } from 'react-router-dom';
-import type { CustomerTypes } from '../../types/customer/CustomerTypes';
+import type { EnumTranslate } from '../../types/EnumTranslate';
 
 const CustomersList = () => {
   
   const [customers,setCustomers] = useState<Customer[]>([])
-  const [customerTypes,setCustomerTypes] = useState<CustomerTypes[]>([])
+  const [customerTypes,setCustomerTypes] = useState<EnumTranslate[]>([])
   
   
     
@@ -23,7 +23,7 @@ const CustomersList = () => {
 
     getCustomerTypes().then(response => {
           const data = response.data;
-          const types: CustomerTypes[] = Object.entries(data).map(([name, translate]) => ({ name, translate: translate as string }));
+          const types: EnumTranslate[] = Object.entries(data).map(([name, translate]) => ({ name, translate: translate as string }));
           setCustomerTypes(types)
         }).catch((err) => console.error(err))
 

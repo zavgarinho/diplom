@@ -1,56 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { createCustomer, editCustomer, getCustomerById, getCustomerTypes } from '../../service/CustomerService'
-import type { EnumTranslate } from '../../types/EnumTranslate'
-import type { Customer } from '../../types/customer/Customer'
-import { useNavigate, useParams } from 'react-router-dom'
-
-const AddEndEditCustomer = () => {
-  const [customerTypes,setCustomerTypes] = useState<EnumTranslate[]>([])
-  const [currentCustomer, setCustomer] = useState<Customer>({firstName: '', lastName: '', patronymic: '', email: '', type: ''})
-  const navigator = useNavigate()
-  const { id } = useParams()
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import type { SecurityObject } from '../../types/object/SecurityObject'
 
 
-
-  useEffect(()=>{
-    getCustomerTypes().then(response => {
-      const data = response.data;
-      const types: EnumTranslate[] = Object.entries(data).map(([name, translate]) => ({ name, translate: translate as string }));
-      setCustomerTypes(types)
-      if(!id){
-        const changedCustomer = {...currentCustomer}
-        changedCustomer.type = types[0].name
-        setCustomer(changedCustomer)
-      }else{
-        getCustomerById(id).then(response =>{
-            setCustomer(response.data)
-        }).catch(error => console.error(error))
-
-      }
-        
-      
-    }).catch((err) => console.error(err))
-  },[])
-
-  const addOrEditCustomer = (e: React.MouseEvent) => {
-      e.preventDefault();
-      console.log(currentCustomer)
-      if(id){
-        editCustomer(currentCustomer, id).then(response =>{
-          console.log(response.data)
-        }).catch(error => console.error(error))
-      }else{
-        
-      createCustomer(currentCustomer).then(response =>{
-        console.log(response.data)
-      }).catch(error => console.error(error))
-    }
-    navigator('/customers')
-  }
-
+const AddOrEditObject = () => {
+  
+  const {id} = useParams()
+  id: number;
+      address: string;
+      area: number;
+      floor: number;
+      type: string;
+      status: string;
+      customer: CustomerShort;
+      works?: InstallationWorkShort[]
+      equipment?: EquipmentShort[]
+  const [currentObject, setCurrentObject] = useState<SecurityObject>({id:0,address:'',area:0,floor:0,type:'',status:'',customer: Customer})
+  
   return (
-    <div className='container '>
-      <h2>{id ? 'Редагувати Клієнта' : 'Додати Клієнта'}</h2>
+    <div className="container">
+
+      <h2>{id ? "Редагувати об'єкт" : "Створити об'єкт"} </h2>
       <form action="">
         <div className="form-group">
           <label htmlFor="firstName">Введіть ім'я</label>
@@ -100,8 +70,11 @@ const AddEndEditCustomer = () => {
 
 
       </form>
-      </div>
+
+    </div>
+    
+    
   )
 }
 
-export default AddEndEditCustomer
+export default AddOrEditObject

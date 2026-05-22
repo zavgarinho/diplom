@@ -1,7 +1,7 @@
 import axios from 'axios'
 import type { Customer } from '../types/customer/Customer';
 
-const BASE_URL = import.meta.env.VITE_CUSTOMER_API_BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL+'/customers';
 
 
 export const getAllCustomers = () => {
