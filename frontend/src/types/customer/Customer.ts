@@ -1,4 +1,4 @@
-import type { CustomerObject } from "./CustomerObject";
+import type { SecurityObjectShort } from "../object/SecurityObjectShort";
 
 export interface Customer {
   id?: number;
@@ -7,5 +7,16 @@ export interface Customer {
   patronymic: string;
   email: string;
   type: string;
-  objects?: CustomerObject[];
+  objects?: SecurityObjectShort[];
+}
+
+export const createDefaultCustomer = () =>{
+  const customer: Customer = {
+    firstName:'',
+    lastName:'',
+    patronymic:'',
+    email:'',
+    type:'',
+  }
+  return customer;
 }

@@ -1,6 +1,6 @@
-import type { CustomerShort } from "./CustomerShort";
+import type { CustomerShort } from "../customer/CustomerShort";
 
-export interface CustomerObject {
+export interface SecurityObjectShort {
   id: number;
   address: string;
   area: number;

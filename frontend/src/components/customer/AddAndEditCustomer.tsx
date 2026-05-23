@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { createCustomer, editCustomer, getCustomerById, getCustomerTypes } from '../../service/CustomerService'
 import type { EnumTranslate } from '../../types/EnumTranslate'
-import type { Customer } from '../../types/customer/Customer'
+import { createDefaultCustomer, type Customer } from '../../types/customer/Customer'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const AddEndEditCustomer = () => {
   const [customerTypes,setCustomerTypes] = useState<EnumTranslate[]>([])
-  const [currentCustomer, setCustomer] = useState<Customer>({firstName: '', lastName: '', patronymic: '', email: '', type: ''})
+  const [currentCustomer, setCustomer] = useState<Customer>(createDefaultCustomer())
   const navigator = useNavigate()
   const { id } = useParams()
 
@@ -95,9 +95,9 @@ const AddEndEditCustomer = () => {
               <option key={type.name} value={type.name}>{type.translate}</option>
             ))}
         </select>
-        <button className='btn btn-success' onClick={addOrEditCustomer}>{id? 'Редагувати' : 'Додати'}</button>
         </div>
-
+        <button className='btn btn-success' onClick={addOrEditCustomer}>{id? 'Редагувати' : 'Додати'}</button>
+        
 
       </form>
       </div>

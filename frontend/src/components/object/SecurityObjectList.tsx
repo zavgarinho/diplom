@@ -33,7 +33,7 @@ const SecurityObjectList = () => {
     <div className='container mt-3'>
         <h2 className='text-center'>Список об'єктів</h2>
         <button className='btn btn-primary' onClick={() =>{
-          navigator('/add-customer')
+          navigator('/add-object')
         }}>
           Додати об'єкт
           </button>

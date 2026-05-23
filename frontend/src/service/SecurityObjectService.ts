@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { SecurityObjectRequest } from "../types/object/SecurityObjectRequest";
 
 
 
@@ -14,4 +15,12 @@ export const getObjectTypes = () => {
 
 export const getObjectStatuses = () =>{
   return axios.get(BASE_URL + '/object-statuses')
+}
+
+export const getObjectById = (id:string) =>{
+  return axios.get(BASE_URL+ '/'+id)
+}
+
+export const createObject = (object:SecurityObjectRequest) =>{
+  return axios.post(BASE_URL,object)
 }

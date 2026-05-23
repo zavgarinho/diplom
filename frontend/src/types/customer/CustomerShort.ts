@@ -6,3 +6,15 @@ export interface CustomerShort {
   email: string;
   type: string;
 }
+
+export const createDefaultCustomerShort = () =>{
+  const customer = {
+    id: 0,
+    firstName:'',
+    lastName:'',
+    patronymic:'',
+    email:'',
+    type:''
+  }
+  return customer;
+}
