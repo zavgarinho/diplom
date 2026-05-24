@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createDefaultObject, type SecurityObject } from '../../types/object/SecurityObject'
 import type { EnumTranslate } from '../../types/EnumTranslate'
-import { createObject, getObjectById, getObjectStatuses, getObjectTypes } from '../../service/SecurityObjectService'
+import { createObject, getObjectById, getObjectStatuses, getObjectTypes, updateObject } from '../../service/SecurityObjectService'
 import type { CustomerShort } from '../../types/customer/CustomerShort'
 import { getAllCustomers, getCustomerById } from '../../service/CustomerService'
 import type { SecurityObjectRequest } from '../../types/object/SecurityObjectRequest'
@@ -25,10 +25,12 @@ const AddOrEditObject = () => {
 
       if(id){
         getObjectById(id).then(response =>{
-         console.log(response.data)
-         let customer = response.data.customer
-         setCustomers([customer])
-         setCurrentObject(prev => ({...prev, customer}))
+         
+         let object = response.data
+         console.log(object)
+         setCurrentObject(object)
+         setCustomers([object.customer])
+         
         })
       }else{
         getAllCustomers().then(response =>{
@@ -52,7 +54,20 @@ const AddOrEditObject = () => {
     e.preventDefault();
     
     if(id){
-
+      let object:SecurityObjectRequest = {
+        address:currentObject.address,
+        area:currentObject.area,
+        floor:currentObject.floor,
+        type:currentObject.type,
+        status:currentObject.status,
+        customerId:currentObject.customer.id,
+        equipmentIds:currentObject.equipment?.map(e => e.id)!,
+        worksId:currentObject.works?.map(w => w.id)!
+      }
+      updateObject(`${id}`,object).then(response=>{
+        console.log(response.data)
+      }).catch(e => console.error(e))
+      navigator("/objects")
     }else{
       let object:SecurityObjectRequest = {
         address:currentObject.address,
@@ -68,6 +83,7 @@ const AddOrEditObject = () => {
       createObject(object).then(response =>{
         console.log(response.data)
       })
+      navigator("/objects")
     }
   }
 
@@ -152,7 +168,7 @@ const AddOrEditObject = () => {
         </div>
             <br />
         <button className='btn btn-success' onClick={addOrEditObject}>{id? 'Редагувати' : 'Додати'}</button>
-        {/* Доделать работы и обладнання */}
+        
 
       </form>
 

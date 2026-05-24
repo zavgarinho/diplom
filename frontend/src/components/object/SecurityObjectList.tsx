@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import type { SecurityObject } from '../../types/object/SecurityObject'
-import { getAllObjects, getObjectStatuses, getObjectTypes } from '../../service/SecurityObjectService'
+import { deleteObject, getAllObjects, getObjectStatuses, getObjectTypes } from '../../service/SecurityObjectService'
 import { useNavigate } from 'react-router-dom'
 import type { EnumTranslate } from '../../types/EnumTranslate'
 
@@ -28,6 +28,14 @@ const SecurityObjectList = () => {
     })
 
   },[])
+
+  const deleteObjectFunc = (e:React.MouseEvent, id:number) =>{
+    e.stopPropagation()
+    e.preventDefault()
+    deleteObject(`${id}`).then( ()=>{
+      setObjects(objects.filter(o => o.id!=id))
+    }).catch(error => console.error(error))
+  }
 
   return (
     <div className='container mt-3'>
@@ -65,8 +73,8 @@ const SecurityObjectList = () => {
                 <td>{objectStatuses.find(s => s.name == object.status)?.translate}</td>
                 <td>{object.customer.firstName + ' ' + object.customer.lastName}</td>
                 <td>
-                  <button className='btn btn-secondary me-2' onClick={(e) => { e.stopPropagation(); navigator(`/edit-customer/${object.id}`)}}> Редагувати</button>
-                  {/* <button className='btn btn-danger' onClick={(e) => {deleteCustomerFunc(e, customer.id!)}}> Видалити </button> */}
+                  <button className='btn btn-secondary me-2' onClick={(e) => { e.stopPropagation(); navigator(`/edit-object/${object.id}`)}}> Редагувати</button>
+                  <button className='btn btn-danger' onClick={(e) => {deleteObjectFunc(e, object.id!)}}> Видалити </button>
                 </td>
               </tr>
             ))}

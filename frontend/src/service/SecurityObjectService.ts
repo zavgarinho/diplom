@@ -24,3 +24,11 @@ export const getObjectById = (id:string) =>{
 export const createObject = (object:SecurityObjectRequest) =>{
   return axios.post(BASE_URL,object)
 }
+
+export const deleteObject = (id:string) =>{
+  return axios.delete(BASE_URL+'/'+id)
+}
+
+export const updateObject = (id:string, newObject:SecurityObjectRequest) =>{
+  return axios.put(BASE_URL+'/'+id, newObject)
+}

@@ -21,7 +21,7 @@ function App() {
         <Route path='/customers/:id' element = { <CustomerPage/>}></Route>
          <Route path='/objects' element = { <SecurityObjectList/>}></Route>
          <Route path='/add-object' element = { <AddOrEditObject/>}></Route>
-         <Route path='/objects/:id' element = { <AddOrEditObject/>}></Route>
+         <Route path='/edit-object/:id' element = { <AddOrEditObject/>}></Route>
       </Routes>
 
     </BrowserRouter>

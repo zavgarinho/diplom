@@ -1,0 +1,35 @@
+
+services:
+  postgresdb:
+    image: postgres:18
+    container_name: diplom-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - diplom_volume:/var/lib/postgresql/18/docker
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  backend:
+    build: .
+    container_name: diplom-backend
+    restart: always
+    depends_on:
+      postgresdb:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://postgresdb:5432/${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASS: ${POSTGRES_PASSWORD}
+    ports:
+      - "8080:8080"
+
+volumes:
+  diplom_volume:
