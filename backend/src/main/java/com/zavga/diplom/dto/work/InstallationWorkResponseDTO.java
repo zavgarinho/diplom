@@ -4,6 +4,7 @@ import com.zavga.diplom.dto.object.SecurityObjectShortDTO;
 import com.zavga.diplom.dto.worker.WorkerShortDTO;
 import com.zavga.diplom.entity.work.InstallationWorkStatus;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public record InstallationWorkResponseDTO(
@@ -11,6 +12,9 @@ public record InstallationWorkResponseDTO(
         String name,
         String description,
         InstallationWorkStatus status,
+        LocalDateTime startTime,
+        LocalDateTime plannedEndTime,
+        LocalDateTime realEndTime,
         List<WorkerShortDTO> workers,
         SecurityObjectShortDTO object
 ) {

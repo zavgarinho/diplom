@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: addTimeStamps
+      author: zavgar
+      changes:
+        - addColumn:
+            tableName: installation_works
+            columns:
+              - column:
+                  name: start_time
+                  type: datetime
+              - column:
+                  name: planned_end_time
+                  type: datetime
+              - column:
+                  name: real_end_time
+                  type: datetime
+        - update:
+            tableName: installation_works
+            columns:
+              - column:
+                  name: start_time
+                  valueDate: '2026-01-05T08:00:00'
+            where: start_time IS NULL
+        - update:
+            tableName: installation_works
+            columns:
+              - column:
+                  name: planned_end_time
+                  valueDate: '2026-01-10T12:00:00'
+            where: planned_end_time IS NULL
+        - update:
+            tableName: installation_works
+            columns:
+              - column:
+                  name: real_end_time
+                  valueDate: '2026-01-10T12:00:00'
+            where: real_end_time IS NULL

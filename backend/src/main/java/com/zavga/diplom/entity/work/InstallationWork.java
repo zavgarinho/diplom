@@ -6,6 +6,7 @@ import com.zavga.diplom.entity.worker.Worker;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +38,15 @@ public class InstallationWork {
     @Column(name = "status")
     @Enumerated(value = EnumType.STRING)
     private InstallationWorkStatus status;
+
+    @Column(name = "start_time")
+    private LocalDateTime startTime;
+
+    @Column(name = "planned_end_time")
+    private LocalDateTime plannedEndTime;
+
+    @Column(name = "real_end_time")
+    private LocalDateTime realEndTime;
 
     @ManyToMany
     @JoinTable(

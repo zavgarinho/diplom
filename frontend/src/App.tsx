@@ -7,6 +7,7 @@ import CustomerPage from './components/customer/CustomerPage.tsx'
 import Header from './components/Header.tsx'
 import SecurityObjectList from './components/object/SecurityObjectList.tsx'
 import AddOrEditObject from './components/object/AddOrEditObject.tsx'
+import ObjectPage from './components/object/SecurityObjectPage.tsx'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
          <Route path='/objects' element = { <SecurityObjectList/>}></Route>
          <Route path='/add-object' element = { <AddOrEditObject/>}></Route>
          <Route path='/edit-object/:id' element = { <AddOrEditObject/>}></Route>
+         <Route path='/objects/:id' element = { <ObjectPage/>}></Route>
       </Routes>
 
     </BrowserRouter>

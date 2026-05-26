@@ -16,6 +16,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -165,7 +167,7 @@ class WorkerServiceTest {
     }
 
     InstallationWorkShortDTO createWorkShortDTO(Long id){
-        return new InstallationWorkShortDTO(id,"name","description", InstallationWorkStatus.PLANNED);
+        return new InstallationWorkShortDTO(id,"name","description", InstallationWorkStatus.PLANNED, LocalDateTime.now(),LocalDateTime.now(),LocalDateTime.now());
     }
 
 }

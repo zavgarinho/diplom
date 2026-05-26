@@ -64,7 +64,7 @@ const SecurityObjectList = () => {
       
           <tbody>
             {objects.map((object) => (
-              <tr key={object.id} onClick={() => navigator(`/customers/${object.id}`)} style={{cursor: 'pointer'}}>
+              <tr key={object.id} onClick={() => navigator(`/objects/${object.id}`)} style={{cursor: 'pointer'}}>
                 <td>{object.id}</td>
                 <td>{object.address}</td>
                 <td>{object.area + ' м²'}</td>

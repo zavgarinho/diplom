@@ -23,13 +23,17 @@ const AddOrEditObject = () => {
       const objectTypesData = Object.entries(response.data).map(([name, translate]) => ({ name, translate: translate as string }));
       setObjectTypes(objectTypesData)
 
+      getAllCustomers().then(response =>{
+          console.log(response.data)
+          setCustomers(response.data)
+        })
+      
       if(id){
         getObjectById(id).then(response =>{
          
          let object = response.data
          console.log(object)
          setCurrentObject(object)
-         setCustomers([object.customer])
          
         })
       }else{
