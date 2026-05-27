@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/works")
+@CrossOrigin("*")
 public class InstallationWorkController {
 
     private final InstallationWorkService workService;
