@@ -154,11 +154,16 @@ const SecurityObjectPage = () => {
             </tbody>
           </table>
         </div>
+        <div className='card mb-4'>
+        <div className='card-body'>
+      <h2>Діаграма робіт </h2>
+        <Gantt tasks={createTask()} />
+        </div>
+        </div>
       </div>
 
-      <div>
+      <div className='container mt-3'>
         
-        <Gantt tasks={createTask()} />
       </div>
 
       {/* <h4 className='mb-3'>Об'єкти охорони</h4>
