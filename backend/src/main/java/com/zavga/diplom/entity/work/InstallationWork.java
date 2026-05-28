@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-@ToString(exclude = {"workers", "object"})
+@ToString(exclude = {"workers", "object", "predecessorWorks"})
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -59,6 +59,14 @@ public class InstallationWork {
     @ManyToOne
     @JoinColumn(name = "object_id")
     private SecurityObject object;
+
+    @ManyToMany
+    @JoinTable(
+            name = "work_dependencies",
+            joinColumns = {@JoinColumn(name = "work_id")},
+            inverseJoinColumns = {@JoinColumn(name = "predecessor_id")}
+    )
+    private Set<InstallationWork> predecessorWorks = new HashSet<>();
 
 
 }

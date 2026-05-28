@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: addWorkDependency
+      author: zavgar
+      changes:
+        - createTable:
+            tableName: work_dependencies
+            columns:
+              - column:
+                  name: work_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: predecessor_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: work_dependencies
+            columnNames: work_id,predecessor_id
+        - addForeignKeyConstraint:
+            constraintName: fk_work_dependency_work
+            baseTableName: work_dependencies
+            baseColumnNames: work_id
+            referencedTableName: installation_works
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            constraintName: fk_work_dependency_predecessor
+            baseTableName: work_dependencies
+            baseColumnNames: predecessor_id
+            referencedTableName: installation_works
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - sql:
+            sql: ALTER TABLE work_dependencies ADD CONSTRAINT chk_no_self_dependency CHECK (work_id <> predecessor_id)

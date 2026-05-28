@@ -167,7 +167,7 @@ class WorkerServiceTest {
     }
 
     InstallationWorkShortDTO createWorkShortDTO(Long id){
-        return new InstallationWorkShortDTO(id,"name","description", InstallationWorkStatus.PLANNED, LocalDateTime.now(),LocalDateTime.now(),LocalDateTime.now());
+        return new InstallationWorkShortDTO(id,"name","description", InstallationWorkStatus.PLANNED, LocalDateTime.now(),LocalDateTime.now(),LocalDateTime.now(),List.of());
     }
 
 }

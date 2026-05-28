@@ -3,13 +3,14 @@ package com.zavga.diplom.dto.object;
 import com.zavga.diplom.dto.customer.CustomerMapper;
 import com.zavga.diplom.dto.equipment.EquipmentShortDTO;
 import com.zavga.diplom.dto.work.InstallationWorkShortDTO;
+import com.zavga.diplom.dto.work.InstallationWorkMapper;
 import com.zavga.diplom.entity.equipment.Equipment;
 import com.zavga.diplom.entity.object.SecurityObject;
 import com.zavga.diplom.entity.work.InstallationWork;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = CustomerMapper.class)
+@Mapper(componentModel = "spring", uses = {CustomerMapper.class, InstallationWorkMapper.class})
 public interface SecurityObjectMapper {
     SecurityObjectShortDTO toShortDto(SecurityObject securityObject);
 
@@ -20,5 +21,4 @@ public interface SecurityObjectMapper {
 
     SecurityObjectResponseDTO toResponseDto(SecurityObject securityObject);
     EquipmentShortDTO toEquipmentShortDTO(Equipment equipment);
-    InstallationWorkShortDTO toInstallationWorkShortDTO(InstallationWork work);
 }

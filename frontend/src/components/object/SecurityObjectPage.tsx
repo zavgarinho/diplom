@@ -53,18 +53,12 @@ const SecurityObjectPage = () => {
     console.log("Days for start " + start + " end " +end +" = " + workDays)
   }
   
-  //Делается из предположения что работа всегда идут вотерфоллом
-  const getDependencyIds = (id:number) =>{
-    let dependencyIds:Dependency[] = []
-    if(id === 0)
-      return dependencyIds
-    dependencyIds.push({
-      sourceId:String(object?.works![id-1].id),
-      sourceTarget: 'endOfTask', 
-      ownTarget: 'startOfTask'
-    })
-    
-    return dependencyIds
+  const getDependencyIds = (ids:number[]):Dependency[] =>{
+    return ids.map(id => ({
+      sourceId: String(id),
+      sourceTarget: 'endOfTask',
+      ownTarget: 'startOfTask',
+    }))
   }
 
   
@@ -73,15 +67,14 @@ const SecurityObjectPage = () => {
       return []
     calculateProgress(new Date(object.works[1].startTime), new Date(object.works[1].plannedEndTime) )
     let tasks: Task[] = object.works.map(w => {
-      let countDependencies = object.works?.indexOf(w)
-      //2
-      let dependencyIds = getDependencyIds(countDependencies!)
+      let dependencyIds = getDependencyIds(w.predecessorIds)
       let task: Task = {
         start: new Date(w.startTime),
         end: new Date(w.plannedEndTime),
         name: w.name,
         id: String(w.id),
         type:'task',
+        //Доделать расчет прогресса по датам
         progress: 45,
         isDisabled: true,
         styles: { barProgressColor: '#ffbb54', barProgressSelectedColor: '#ff9e0d' },
@@ -90,29 +83,7 @@ const SecurityObjectPage = () => {
         
         return task;
   })
-    // let tasks: Task[] = [
-    // {
-    //   start: new Date(2020, 1, 1),
-    //   end: new Date(2020, 1, 2),
-    //   name: 'Idea',
-    //   id: 'Task 0',
-    //   type:'task',
-    //   progress: 45,
-    //   isDisabled: true,
-    //   styles: { barProgressColor: '#ffbb54', barProgressSelectedColor: '#ff9e0d' },
-    // },
-    // {
-    //   start: new Date(2020, 1, 3),
-    //   end: new Date(2020, 1, 4),
-    //   name: 'Idea 2',
-    //   id: 'Task 1',
-    //   type:'task',
-    //   progress: 55,
-    //   isDisabled: true,
-    //   styles: { barProgressColor: '#ffbb54', barProgressSelectedColor: '#ff9e0d' },
-    //   dependencies:  [{sourceId: 'Task 0', sourceTarget: 'endOfTask', ownTarget: 'startOfTask' }]
-    // }
-  //]
+   
     return tasks;
   }
   
@@ -157,7 +128,7 @@ const SecurityObjectPage = () => {
         <div className='card mb-4'>
         <div className='card-body'>
       <h2>Діаграма робіт </h2>
-        <Gantt tasks={createTask()} />
+        <Gantt tasks={createTask()} distances={{ titleCellWidth: 100, dateCellWidth: 150 }}  />
         </div>
         </div>
       </div>

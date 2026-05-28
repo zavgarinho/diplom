@@ -5,6 +5,7 @@ import com.zavga.diplom.entity.work.InstallationWorkStatus;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record InstallationWorkShortDTO(
         Long id,
@@ -13,6 +14,7 @@ public record InstallationWorkShortDTO(
         InstallationWorkStatus status,
         LocalDateTime startTime,
         LocalDateTime plannedEndTime,
-        LocalDateTime realEndTime
+        LocalDateTime realEndTime,
+        List<Long> predecessorIds
 ) {
 }

@@ -16,6 +16,7 @@ public record InstallationWorkResponseDTO(
         LocalDateTime plannedEndTime,
         LocalDateTime realEndTime,
         List<WorkerShortDTO> workers,
+        List<Long> predecessorIds,
         SecurityObjectShortDTO object
 ) {
 }

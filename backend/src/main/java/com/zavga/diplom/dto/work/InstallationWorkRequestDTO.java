@@ -13,6 +13,7 @@ public record InstallationWorkRequestDTO(
         LocalDateTime plannedEndTime,
         LocalDateTime realEndTime,
         List<Long> workersId,
+        List<Long> predecessorIds,
         Long objectId
 
 ) {

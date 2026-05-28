@@ -5,5 +5,6 @@ export interface InstallationWorkShort{
   status: string,
   startTime: string,
   plannedEndTime:string,
-  realEndTime: string
+  realEndTime: string,
+  predecessorIds: number[]
 }

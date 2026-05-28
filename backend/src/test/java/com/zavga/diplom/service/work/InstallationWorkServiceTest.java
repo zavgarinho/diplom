@@ -216,11 +216,11 @@ class InstallationWorkServiceTest {
     }
 
     InstallationWorkResponseDTO createResponseDTO(Long id, List<WorkerShortDTO> workers, SecurityObjectShortDTO object){
-        return new InstallationWorkResponseDTO(id,"name","description", InstallationWorkStatus.PLANNED, LocalDateTime.now(),LocalDateTime.now(),LocalDateTime.now(),workers, object);
+        return new InstallationWorkResponseDTO(id,"name","description", InstallationWorkStatus.PLANNED, LocalDateTime.now(),LocalDateTime.now(),LocalDateTime.now(),workers,List.of() ,object);
     }
 
     InstallationWorkRequestDTO createRequestDTO( List<Long> workersId, Long objectId){
-        return new InstallationWorkRequestDTO("name","description", InstallationWorkStatus.PLANNED,LocalDateTime.now(),LocalDateTime.now(),LocalDateTime.now(),workersId, objectId);
+        return new InstallationWorkRequestDTO("name","description", InstallationWorkStatus.PLANNED,LocalDateTime.now(),LocalDateTime.now(),LocalDateTime.now(),workersId,List.of(), objectId);
     }
 
     WorkerShortDTO createWorkerShortDTO(Long id){

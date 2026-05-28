@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Email;
 import lombok.*;
 
 import com.zavga.diplom.entity.object.SecurityObject;
+import org.hibernate.FetchMode;
 
 import java.util.HashSet;
 import java.util.List;
