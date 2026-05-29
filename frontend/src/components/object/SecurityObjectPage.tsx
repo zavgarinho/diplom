@@ -9,6 +9,8 @@ import '@wamra/gantt-task-react/dist/style.css'
 import type { InstallationWorkShort } from '../../types/work/InstallationWorkShort'
 import { getWorksForObject } from '../../service/InstallationWorkService'
 import { getEquipmentTypes } from '../../service/EquipmentService'
+import { Button, Modal } from 'react-bootstrap'
+import { createDefaultWorkRequest, type InstallationWorkRequest } from '../../types/work/InstallationWorkRequest'
 
 
 const SecurityObjectPage = () => {
@@ -19,6 +21,9 @@ const SecurityObjectPage = () => {
   const [objectStatuses, setObjectStatuses] = useState<EnumTranslate[]>([])
   const [works, setWorks] = useState<InstallationWorkShort[]>([])
   const [equipmentTypes,setEquipmentTypes] = useState<EnumTranslate[]>([])
+  const [addedWork, setAddedWork] = useState<InstallationWorkRequest>(createDefaultWorkRequest())
+  const [show, setShow] = useState(false)
+  
   const navigator = useNavigate()
 
 
@@ -103,6 +108,10 @@ const SecurityObjectPage = () => {
    
     return tasks;
   }
+
+  const handleSave = () => {
+
+  }
   
   return (
     <div className='container mt-3'>
@@ -147,6 +156,111 @@ const SecurityObjectPage = () => {
       <div className='card mb-4'>
         <div className='card-body'>
           <h2>Діаграма робіт </h2>
+          <Button onClick={() => setShow(true)}>Додати роботу</Button>
+          <Modal show={show} onHide={() => setShow(false)}>
+            <Modal.Header closeButton><Modal.Title>Нова робота</Modal.Title></Modal.Header>
+            <Modal.Body>
+                <form action="">
+          <div className="form-group">
+            <label htmlFor="name">Введіть назву роботи</label>
+            <input type="text" className="form-control" placeholder="Назва" id='name' value={addedWork.name} onChange={(e)=> {
+              let work = {...addedWork}
+              work.name = e.target.value
+              console.log(work)
+              setAddedWork(work)
+            }}/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="description">Введіть опис роботи</label>
+            <input type="text" className="form-control" placeholder="Опис" id='description'  value={addedWork.description } onChange={(e)=> {
+              let work = {...addedWork}
+              work.description = e.target.value
+              console.log(work)
+              setAddedWork(work)
+            }}/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="status">Введіть статус роботи</label>
+            <input type="text" className="form-control" placeholder="Опис" id='status'  value={addedWork.status } onChange={(e)=> {
+              let work = {...addedWork}
+              work.status = e.target.value
+              console.log(work)
+              setAddedWork(work)
+            }}/>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="startTime">Введіть дату початку роботи</label>
+            <input type="text" className="form-control" placeholder="Початок" id='startTime'  value={addedWork.startTime } onChange={(e)=> {
+              let work = {...addedWork}
+              work.startTime = e.target.value
+              console.log(work)
+              setAddedWork(work)
+            }}/>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="plannedEndTime">Введіть дату завершення роботи</label>
+            <input type="text" className="form-control" placeholder="Завершення" id='plannedEndTime'  value={addedWork.plannedEndTime } onChange={(e)=> {
+              let work = {...addedWork}
+              work.startTime = e.target.value
+              console.log(work)
+              setAddedWork(work)
+            }}/>
+          </div>
+
+          {/* <div className="form-group">
+            <label htmlFor="objectType">Введіть тип об'єкта</label>
+          <select className="form-control" id="objectType" value={currentObject.type} onChange={(e) => {
+              let changedObject = {...currentObject}
+              changedObject.type = e.target.value
+              console.log(changedObject.type)
+              setCurrentObject(changedObject)
+            }}>
+              {objectTypes.map((type) => (
+                <option key={type.name} value={type.name}>{type.translate}</option>
+              ))}
+          </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="objectStatus">Введіть статус об'єкта</label>
+          <select className="form-control" id="objectStatus" value={currentObject.status} onChange={(e) => {
+              let changedObject = {...currentObject}
+              changedObject.status = e.target.value
+              console.log(changedObject.status)
+              setCurrentObject(changedObject)
+            }}>
+              {objectStatuses.map((type) => (
+                <option key={type.name} value={type.name}>{type.translate}</option>
+              ))}
+          </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="customer">Оберіть замовника</label>
+          <select className="form-control" id="customer" value={currentObject.customer.id} onChange={(e) => {
+              let changedObject = {...currentObject}
+              changedObject.customer = customers.find(c => c.id == Number(e.target.value))!
+              console.log(changedObject.customer)
+              setCurrentObject(changedObject)
+            }}>
+              {customers.map((customer) => (
+                <option key={customer.id} value={customer.id}>{customer.firstName + ' ' + customer.lastName}</option>
+              ))}
+          </select>
+          <button className='btn btn-secondary' onClick={()=>navigator("/add-customer")}>Додати замовника</button>
+
+          </div> */}
+          
+
+        </form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={() => setShow(false)}>Скасувати</Button>
+              <Button variant="success" onClick={handleSave}>Зберегти</Button>
+            </Modal.Footer>
+          </Modal>
           <Gantt tasks={createTask()} viewMode= {ViewMode.TwoDays} distances={{ titleCellWidth: 100, dateCellWidth: 150 }}  />
           </div>
         </div>
@@ -184,7 +298,7 @@ const SecurityObjectPage = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={5}>Обладнання відсутнє</td>
+                <td >Обладнання відсутнє</td>
               </tr>
             )}
           </tbody>

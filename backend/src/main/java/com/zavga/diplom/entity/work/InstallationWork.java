@@ -39,10 +39,10 @@ public class InstallationWork {
     @Enumerated(value = EnumType.STRING)
     private InstallationWorkStatus status;
 
-    @Column(name = "start_time")
+    @Column(name = "start_time", nullable = false)
     private LocalDateTime startTime;
 
-    @Column(name = "planned_end_time")
+    @Column(name = "planned_end_time", nullable = false)
     private LocalDateTime plannedEndTime;
 
     @Column(name = "real_end_time")
